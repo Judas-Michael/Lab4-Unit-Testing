@@ -1,0 +1,9 @@
+import unittest
+from triangle import triangle_math
+
+
+class TestTriangle(unittest.TestCase):
+	def test_triangle_area(self):
+	
+		#Test area function with some example data
+		self.assertEqual(12, triangle_math.area(6,4))
