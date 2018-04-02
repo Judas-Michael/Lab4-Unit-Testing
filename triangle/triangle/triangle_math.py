@@ -7,7 +7,7 @@ def is_right_angle(s1, s2, s3):
 	'''Pythagorian theroem'''
 	
 	sides = [s1,s2,s3]
-	sides.sort
+	sides.sort()#sorts by length
 	
 	a,b,c = tuple(sides)
 	
