@@ -31,8 +31,6 @@ class TestStudentLists(TestCase):
         with self.assertRaises(StudentError):
             test_class.add_student('Test Student')
 
-
-			
 	def test_is_student_removed(self): #tests to make sure removed student is not in list
 		test_class = ClassList(2)
 		test_class.add_student('Test Student')

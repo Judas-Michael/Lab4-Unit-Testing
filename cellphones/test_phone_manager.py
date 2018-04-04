@@ -20,72 +20,118 @@ class TestPhoneManager(unittest.TestCase):
 
 
     def test_create_and_add_phone_with_duplicate_id(self):
-        # TODO add a phone, add another phone with the same id, and verify an PhoneError exception is thrown
-        # TODO you'll need to modify PhoneAssignments.add_phone() to make this test pass
-        testPhone1 = Phone(1, 'Apple', 'iPhone 6')
-        testPhone2 = Phone(1, 'Apple', 'iPhone 5')
+      
+        testPhone1 = Phone(1, 'Apple', 'iPhone 6') #testphone1 assigned values
+        testPhone2 = Phone(1, 'Apple', 'iPhone 5') #testphone2 assigned values
 
-        testAssignmentMgr = PhoneAssignments()
-        testAssignmentMgr.add_phone(testPhone1)
+        testAssignmentMgr = PhoneAssignments() #assigns new name 
+        testAssignmentMgr.add_phone(testPhone1) #adds phone 1
 
-        with self.assertRaises(PhoneError):
+        with self.assertRaises(PhoneError): #raises error when testphone2 is added
             testAssignmentMgr.add_phone(testPhone2)
 
 
     def test_create_and_add_new_employee(self):
-        # TODO write this test and then remove the self.fail() statement
-        # Add some employees and verify they are present in the PhoneAssignments.employees list
-        self.fail()
+		
+		testEmployee1 = Employee(1, 'John', 'Jacobs') #assigns employee1 data
+		testEmployee2 = Employee(2, 'Jenny', 'Jenson') #assigns employee2 data
+		
+		testAssignmentMgr = EmployeeAssignments() #assigns name
+		testAssignmentMgr.add_employee(testEmployee1) #adds employee1
+		testAssignmentMgr.add_employee(testEmployee2) #adds employee2
+		
+		self.assertIn(testEmployee1, EmployeeAssignments) #makes sure employee1 is in employee assignments	
+		self.assertIn(testEmployee2, EmployeeAssignments) #makes sure employee 2 is in employee assignments
 
 
     def test_create_and_add_employee_with_duplicate_id(self):
-        # TODO write this test and then remove the self.fail() statement
-        # TODO you'll need to fix the add_employee method in PhoneAssignments to make this test PhoneAssignments
-        # This method will be similar to test_create_and_add_phone_with_duplicate_id
-        self.fail()
+  
+        testEmployee1 = Employee(1, 'John', 'Jacobs') #assigns employee1 data
+		testEmployee2 = Employee(1, 'Jenny', 'Jenson') #assigns employee2 data but same ID
+
+        testAssignmentMgr = EmployeeAssignments() #assigns new name 
+        testAssignmentMgr.add_employee(testEmployee1) #adds employee1
+
+        with self.assertRaises(EmployeeError): #raises error when employee2 is added
+            testAssignmentMgr.add_employee(employee2)
 
 
     def test_assign_phone_to_employee(self):
-        # TODO write this test and remove the self.fail() statement
-        # TODO you'll need to fix the assign method in PhoneAssignments
+   
+		testPhone1 = Phone(1, 'Apple', 'iPhone 6') #testphone1 assigned values
+		testEmployee1 = Employee(1, 'John', 'Jacobs') #assigns employee1 data
 
-        self.fail()
+		assign(self, testPhone1, testEmployee1) #sends data to assign method
+		self.assertIn(testPhone1, EmployeeAssignments) #checks for phone in employee data
+
+  
 
 
     def test_assign_phone_that_has_already_been_assigned_to_employee(self):
-        # If a phone is already assigned to an employee, it is an error to assign it to a different employee. A PhoneError should be raised.
-        # TODO write this test and remove the self.fail() statement
-        # TODO you'll need to fix the assign method in PhoneAssignments so it throws an exception if the phone is alreaady assigned.
+       
+		testPhone1 = Phone(1, 'Apple', 'iPhone 6') #testphone1 assigned values
+		testEmployee1 = Employee(1, 'John', 'Jacobs') #assigns employee1 data
+		testEmployee2 = Employee(2, 'Jenny', 'Jenson') #assigns employee2 data but same ID
 
-        self.fail()
+		assign(self, testPhone1, testEmployee1) # assigns phone to employee
+		 with self.assertRaises(PhoneError): #raises error when phone is assigned to extra employee
+            assign(self, testPhone1, testEmployee2)
+
+
+		
 
 
     def test_assign_phone_to_employee_who_already_has_a_phone(self):
         # TODO write this test and remove the self.fail() statement
         # TODO you'll need to fix the assign method in PhoneAssignments so it raises a PhoneError if the phone is alreaady assigned.
+		
+		testPhone1 = Phone(1, 'Apple', 'iPhone 6') #testphone1 assigned values
+		testEmployee1 = Employee(1, 'John', 'Jacobs') #assigns employee1 data
+		testPhone2 = Phone(2, 'Apple', 'iPhone 5')
 
-        self.fail()
+		assign(self, testPhone1, testEmployee1) # assigns phone to employee
+		 with self.assertRaises(PhoneError): #raises error when phone is assigned to employee with phone
+            assign(self, testPhone2, testEmployee1)
+
 
 
     def test_assign_phone_to_the_employee_who_already_has_this_phone(self):
-        # TODO The method should not make any changes but NOT raise a PhoneError if a phone
-        # is assigned to the same user it is currenly assigned to.
+    
+		testPhone1 = Phone(1, 'Apple', 'iPhone 6') #testphone1 assigned values
+		testEmployee1 = Employee(1, 'John', 'Jacobs') #assigns employee1 data
 
-        self.fail()
+		assign(self, testPhone1, testEmployee1) # assigns phone to employee
+		 with self.assertRaises(PhoneError): #raises error when same phone is assigned to the same person
+            assign(self, testPhone1, testEmployee1)
 
 
     def test_un_assign_phone(self):
-        # TODO write this test and remove the self.fail() statement
-        # Assign a phone, unasign the phone, verify the employee_id is None
-        self.fail()
+       
+		testPhone1 = Phone(1, 'Apple', 'iPhone 6') #testphone1 assigned values
+		testEmployee1 = Employee(1, 'John', 'Jacobs') #assigns employee1 data
 
+		assign(self, testPhone1, testEmployee1) #sends data to assign method
+		unassign(self,testPhone1, testEmployee1) #unassigns phone
+		
+		assertIsNone(employee_id) #looks for none as employee_id
 
     def test_get_phone_info_for_employee(self):
-        # TODO write this test and remove the self.fail() statement
-        # Create some phones, and employees, assign a phone,
-        # call phone_info and verify correct phone info is returned
-
-        # TODO check that the method returns None if the employee does not have a phone
+      
         # TODO check that the method raises an PhoneError if the employee does not exist
+		
+		testEmployee1 = Employee(1, 'John', 'Jacobs') #assigns employee1 data
+		testEmployee2 = Employee(2, 'Jenny', 'Jenson') #assigns employee2 data
+		
+        testPhone1 = Phone(1, 'Apple', 'iPhone 6') #testphone1 assigned values
+        testPhone2 = Phone(2, 'Apple', 'iPhone 5') #testphone2 assigned values
+		
+		assign(self, testPhone1, testEmployee1) #assigns phone
+		phoneResult = phone_info(testEmployee1) #calls phone info
+		
+		self.assertIs(phoneResult, testPhone1) #verifies testPhone1 was returned as answer
+		self.assertIsNone(testEmployee2) #looks for none as employee_id because employee 2 doesn't have a phone
+		
+		with self.assertRaises(PhoneError): #raises error when employee does not have phone
+            phone_info(testEmployee2)
 
-        self.fail()
+       
